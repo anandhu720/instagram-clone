@@ -29,13 +29,13 @@ const Stack = createStackNavigator();
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "*****************",
-  authDomain: "***************",
-  projectId: "*********************",
-  storageBucket: "*******************",
-  messagingSenderId: "**************",
-  appId: "********************",
-  measurementId: "*****************"
+  apiKey: "AIzaSyBtOVGtBmPGQV9NP6eCiYLqoLeY_kSi1gw",
+  authDomain: "instagram-clone-6e7bd.firebaseapp.com",
+  projectId: "instagram-clone-6e7bd",
+  storageBucket: "instagram-clone-6e7bd.appspot.com",
+  messagingSenderId: "79021283912",
+  appId: "1:79021283912:web:ec9e08bd3f77fe269e167d",
+  measurementId: "G-G2P0X7MRMC"
 };
 
 //verifying we are not running any firebase instance at the moment

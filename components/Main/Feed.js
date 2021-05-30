@@ -12,30 +12,48 @@ function Feed(props) {
     const [userPosts , setUserPosts] = useState([]);
     const [user,setUser] = useState(null);
     const [posts,setPosts] = useState([]);
+    const [like,setLike] = useState("heart-outline");
     console.log(props);
     
     useEffect(() => {
-        let posts = [];
-         if(props.usersLoaded == props.following.length) {
-            for(let i=0;i<props.following.length;i++) {
-                const user = props.users.find(el => el.uid === props.following[i]);
-                if(user != undefined){
-                    posts = [...posts, ...user.posts];
-                }
-            }
+         if(props.usersLoaded == props.following.length && props.following.length !== 0) {
 
-            posts.sort((x,y) => {
+
+            props.feed.sort((x,y) => {
                 return x.creation - y.creation;
             })
 
-            setPosts(posts);
+            setPosts(props.feed);
         }
 
 
-    },[props.usersLoaded])
+    },[props.usersLoaded,props.feed])
 
     // console.log(posts);
 
+    const onLikePress = (userId,postId) => {
+        setLike("heart");
+        firebase.firestore().collection("posts")
+            .doc(userId)
+            .collection("userPosts")
+            .doc(postId)
+            .collection("likes")
+            .doc(firebase.auth().currentUser.uid)
+            .set({})
+    }
+
+    const onDisLikePress = (userId,postId) => {
+        setLike("heart-outline");
+        firebase.firestore().collection("posts")
+            .doc(userId)
+            .collection("userPosts")
+            .doc(postId)
+            .collection("likes")
+            .doc(firebase.auth().currentUser.uid)
+            .delete()
+    }
+
+    console.log(like);
 
     return (
         <View style={styles.view}>
@@ -70,7 +88,9 @@ function Feed(props) {
                                 source={{uri:item.downloadURL}}
                             />
                             <View style={styles.container1}>
-                                <MaterialCommunityIcons name="heart-outline" size={26} />
+                                {item.currentUserLike ? <MaterialCommunityIcons name="heart" size={26} onPress={()=> onDisLikePress(item.user.uid,item.id)}/>
+                                :<MaterialCommunityIcons name="heart-outline" size={26} onPress={()=> onLikePress(item.user.uid,item.id)}/>
+                                }
                                 <MaterialCommunityIcons name="comment-outline" style={{marginLeft:10}} size={26} onPress={()=> props.navigation.navigate("Comment",{postId : item.id,uid: item.user.uid})} />
                             </View>
                             <Text style={styles.caption}>{item.caption}</Text>
@@ -87,7 +107,7 @@ function Feed(props) {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     following:store.userState.following,
-    users:store.usersState.users,
+    feed:store.usersState.feed,
     usersLoaded:store.usersState.usersLoaded,
 
 })

@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {StyleSheet,View,Button,TextInput,Text,Image,FlatList,TouchableOpacity} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 import firebase from 'firebase';
 require('firebase/firestore');
@@ -83,10 +85,27 @@ function Profile(props) {
     return (
         <View style={styles.view}>
             <View style={styles.infoContainer}>
-                <Text>{user.username}</Text>
-                <Text>{user.email}</Text>
+                <View style={styles.container}>
+                    <MaterialCommunityIcons name="circle-outline" size={100} />
+                    <View style={styles.container1}>
+                        <View style={styles.container2}>
+                            {props.route.params.uid === firebase.auth().currentUser.uid ? <Text>0</Text> : null }
+                            <Text style={styles.head}>Posts</Text>
+                        </View>
+                        <View style={styles.container2}>
+                            {props.route.params.uid === firebase.auth().currentUser.uid ? <Text>{props.following.length}</Text> : null }
+                            <Text style={styles.head}>Following</Text>
+                        </View>
+                        <View style={styles.container2}>
+                            {props.route.params.uid === firebase.auth().currentUser.uid ? <Text>0</Text> : null }
+                            <Text style={styles.head}>Followers</Text>
+                        </View>
+                    </View>
+                </View>
+                <Text style={styles.username}>{user.username}</Text>
+                <Text style={styles.username}>{user.email}</Text>
                 {props.route.params.uid === firebase.auth().currentUser.uid ? <Button title="log out" onPress={()=> onLogOut()} /> : null }
-                {props.route.params.uid === firebase.auth().currentUser.uid ? <Text>{props.following.length}</Text> : null }
+                
                 {props.route.params.uid != firebase.auth().currentUser.uid && 
                     <View>
                         {following === true ? 
@@ -109,7 +128,7 @@ function Profile(props) {
                         <View style={styles.containerImage}>
                         {/* {console.log(userPosts)} */}
                         <TouchableOpacity
-                                 onPress={()=>props.navigation.navigate("Feed" , {email : item.email})}
+                                //  onPress={()=>props.navigation.navigate("Feed" , {email : item.email})}
                         >
                         <Image 
                             style={styles.image}
@@ -152,5 +171,34 @@ const styles = StyleSheet.create({
     },
     containerImage:{
         flex:1/3,
-    }
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        paddingBottom:20,
+        paddingLeft:10,
+        paddingRight:10,
+        paddingTop:10,
+     },
+     container1: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+       
+     },
+     container2: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+       
+     },
+     head:{
+        padding:10
+     },
+     username:{
+         fontSize:16,
+         left:10,
+         marginBottom:10
+     },
 })

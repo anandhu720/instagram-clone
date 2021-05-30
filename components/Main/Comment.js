@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {StyleSheet,View,Button,TextInput,Text,Image,FlatList} from 'react-native';
+import {StyleSheet,View,Button,TextInput,Text,Image,FlatList,TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import firebase from 'firebase';
@@ -85,7 +85,11 @@ function Comment(props) {
                         {item.user != undefined && 
                         <View style={styles.container1}>
                             <MaterialCommunityIcons name="circle" size={24}/>
+                            <TouchableOpacity
+                                onPress={()=>props.navigation.navigate("Profile" , {uid : item.user.uid})}
+                            >
                             <Text style={styles.username}>{item.user.username}</Text>
+                            </TouchableOpacity>
                         </View>}
                         <Text style={styles.userComment}>{item.text}</Text>
                         <View style={styles.container1}>

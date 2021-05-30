@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { StyleSheet, TextInput, View, Button ,Image } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import firebase from 'firebase';
 require('firebase/firestore');
@@ -57,10 +58,12 @@ export default function Save(props,{navigation}) {
                 placeholder="captions ...." 
                 onChangeText={(caption)=> setCaption(caption)}
             />
-            <Button title="Save" 
+        <View style={styles.container1}>
+        <MaterialCommunityIcons name="plus-circle-outline" size={60} title="Post" 
                 style={styles.button}
                 onPress={() => uploadImage()}
             />
+        </View>
         </View>
     )
 }
@@ -73,11 +76,17 @@ const styles = StyleSheet.create({
      },
      image:{
         flex:1,
+        aspectRatio:1/1,
     },
     textInput:{
-        margin:12,
+        height:40
     },
     button: {
-    }
+    },
+    container1: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+     },
   });
   
