@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {StyleSheet,View,Button,TextInput,Text,Image} from "react-native";
 import firebase from "firebase";
 
-import instasignup from "../../assets/instasignup.png"
+import instasignup from "../../assets/instalogin.png"
 
 
 export class Register extends Component {
@@ -49,7 +49,7 @@ export class Register extends Component {
                <View ><TextInput style={styles.viewInput} placeholder="Email Id" onChangeText={(email)=>this.setState({email})} /></View>
                <View ><TextInput style={styles.viewInput} placeholder="Password" secureTextEntry={true} onChangeText={(password)=>this.setState({password})} /></View>
                <View style={styles.viewButton}><Button onPress={()=> this.onSignUp()} title="Sign Up" /></View>
-               <View>
+               <View style={styles.messg}>
                <Text style={styles.signupText}>Already have an account?<Text style={{color: 'blue'}} title="Login" onPress={()=> this.props.navigation.navigate('Login')}  >Sign In</Text></Text>
                </View>
             </View>
@@ -80,8 +80,11 @@ const styles = StyleSheet.create({
      loginimg: {
         height:200,
         width:200,
-        marginBottom:50,
-        alignItems:'center',
+        marginBottom:10,
+        left:10,
+    },
+    messg:{
+        marginTop:15,
     }
   });
   

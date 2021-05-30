@@ -38,8 +38,9 @@ export class Login extends Component {
                     <View><TextInput style={styles.viewInput} placeholder="Email Id" onChangeText={(email)=>this.setState({email})} /></View>
                     <View><TextInput style={styles.viewInput} placeholder="Password" secureTextEntry={true} onChangeText={(password)=>this.setState({password})} /></View>
                     <View style={styles.viewButton}><Button onPress={()=> this.onSignIn()} title="Sign In" /></View>
-                    <Text style={styles.signupText}>Don't have an account?</Text>
-                    <Text style={{color: 'blue'}} title="Register" onPress={()=> this.props.navigation.navigate('Register')}  >Sign Up</Text>
+                    <View style={styles.messg}>
+                        <Text style={styles.signupText}>Don't have an account?<Text style={{color: 'blue'}} title="Register" onPress={()=> this.props.navigation.navigate('Register')}  >Sign Up</Text></Text>    
+                    </View>
             </View>
         )
         }
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
          width:200,
          marginBottom:10,
          left:10,
+    },
+    messg:{
+        marginTop:15,
     }
   });
   

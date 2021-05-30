@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {StyleSheet,View,Button,TextInput,Text,Image,FlatList} from 'react-native';
+import {StyleSheet,View,Button,TextInput,Text,Image,FlatList,TouchableOpacity} from 'react-native';
 
 import firebase from 'firebase';
 require('firebase/firestore');
@@ -107,10 +107,15 @@ function Profile(props) {
                     data={userPosts}
                     renderItem={({item}) => (
                         <View style={styles.containerImage}>
+                        {/* {console.log(userPosts)} */}
+                        <TouchableOpacity
+                                 onPress={()=>props.navigation.navigate("Feed" , {email : item.email})}
+                        >
                         <Image 
                             style={styles.image}
                             source={{uri:item.downloadURL}}
                         />
+                        </TouchableOpacity>
                         </View>
                     )}
                 />

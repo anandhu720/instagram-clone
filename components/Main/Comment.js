@@ -74,7 +74,7 @@ function Comment(props) {
 
 
     return (
-        <View>
+        <View style = {styles.view}>
             <FlatList
                 numColumns={1}
                 horizontal={false}
@@ -82,16 +82,25 @@ function Comment(props) {
                 renderItem={({item}) => (
                     <View>
                         {/* {console.log(item)} */}
-                        {item.user != undefined && <Text>{item.user.username}</Text>}
-                        <Text>{item.text}</Text>
+                        {item.user != undefined && 
+                        <View style={styles.container1}>
+                            <MaterialCommunityIcons name="circle" size={24}/>
+                            <Text style={styles.username}>{item.user.username}</Text>
+                        </View>}
+                        <Text style={styles.userComment}>{item.text}</Text>
+                        <View style={styles.container1}>
+                            <MaterialCommunityIcons name="thumb-up-outline" size={12} style={styles.userLike}>Like</MaterialCommunityIcons>
+                            <MaterialCommunityIcons name="thumb-down-outline" size={12} style={styles.userDisLike}>DisLike</MaterialCommunityIcons>
+                        </View>
                     </View>
                 )}
             />
 
 
-            <View>
+            <View style = {styles.container}>
                 <TextInput placeholder="add comment"
                     onChangeText={(text) => setText(text)} 
+                    style={styles.commentTextBox}
                 />
                 <MaterialCommunityIcons name="send" size={26} onPress={() => onCommentSend()}/>
             </View>
@@ -111,4 +120,42 @@ Comment = connect(mapStateToProps ,mapDispatchToProps)(Comment);
 export default Comment;
 
 
-
+const styles = StyleSheet.create({
+    view:{
+        flex:1,
+        justifyContent: 'center',
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        paddingBottom:20,
+        paddingLeft:10,
+        paddingRight:10
+     },
+     container1: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        padding:10
+     },
+     commentTextBox:{
+        //  height:40
+     },
+     username:{
+         fontSize:20,
+         paddingLeft:10
+     },
+     userComment:{
+         left:20,
+         fontSize:16
+     },
+     userLike:{
+         left:30,
+         marginTop:10
+     },
+     userDisLike:{
+        left:50,
+        marginTop:10
+    }
+})
